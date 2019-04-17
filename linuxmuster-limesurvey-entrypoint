@@ -26,6 +26,8 @@ if [ $# -eq 0 ]; then
 		  $myclidbroot -e "ALTER USER ${LIME_DB_USER}@'%' IDENTIFIED BY '${LIME_DB_PASSWORD}';"
 		  $myclidbroot -e "GRANT ALL PRIVILEGES ON ${LIME_DB_NAME}.* TO ${LIME_DB_USER}@'%';"
 		  $myclidbroot -e "FLUSH PRIVILEGES;"
+		  cd /var/www/html/application/commands
+		  php console.php install "${LIME_ADMIN}" "${LIME_ADMIN_PW}" "Administrator (local)" "${LIME_ADMIN_MAIL}" verbose 
  	 else
 		  echo "Database $LIME_DB_NAME exists."
 		  echo "Setting password as specified in docker-compose.yml."
