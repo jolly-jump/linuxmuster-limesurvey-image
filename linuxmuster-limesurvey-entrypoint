@@ -27,7 +27,11 @@ if [ $# -eq 0 ]; then
 		  $myclidbroot -e "GRANT ALL PRIVILEGES ON ${LIME_DB_NAME}.* TO ${LIME_DB_USER}@'%';"
 		  $myclidbroot -e "FLUSH PRIVILEGES;"
 		  cd /var/www/html/application/commands
-		  php console.php install "${LIME_ADMIN}" "${LIME_ADMIN_PW}" "Administrator (local)" "${LIME_ADMIN_MAIL}" verbose 
+		  php console.php install "${LIME_ADMIN}" "${LIME_ADMIN_PW}" "Administrator (local)" "${LIME_ADMIN_MAIL}" verbose
+		  # mangle the database
+		  if [ -e /usr/share/linuxmuster-limesurvey/changes.sql ]; then
+		      $myclidbuser ${LIME_DB_NAME} < /usr/share/linuxmuster-limesurvey/changes.sql
+		  fi
  	 else
 		  echo "Database $LIME_DB_NAME exists."
 		  echo "Setting password as specified in docker-compose.yml."

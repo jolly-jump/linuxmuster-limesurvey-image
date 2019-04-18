@@ -1,6 +1,8 @@
 FROM php:7.3.3-apache-stretch
-COPY --chown=www-data limesurvey/  /var/www/html/
 RUN mkdir /var/linuxmuster-limesurvey
+RUN mkdir /usr/share/linuxmuster-limesurvey
+COPY --chown=www-data limesurvey/  /var/www/html/
+COPY --chown=www-data limesurvey/application/core/plugins/AuthLDAP/AuthLDAP.php  /usr/share/linuxmuster-limesurvey/AuthLDAP.php.dist
 #COPY locale.gen /etc/locale.gen
 #COPY ldap.conf /etc/ldap/ldap.conf
 RUN apt-get update 
