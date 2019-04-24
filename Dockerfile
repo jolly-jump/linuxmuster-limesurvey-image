@@ -1,4 +1,4 @@
-FROM php:7.3.3-apache-stretch
+FROM php:7.3.4-apache-stretch
 RUN mkdir /var/linuxmuster-limesurvey
 RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/
@@ -8,6 +8,7 @@ COPY --chown=www-data ldapform.php.fix-14793 /var/www/html/application/views/adm
 #COPY locale.gen /etc/locale.gen
 #COPY ldap.conf /etc/ldap/ldap.conf
 RUN apt-get update 
+RUN apt-get -y full-upgrade
 # php-ldap
 RUN apt-get install -y libldap2-dev 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
