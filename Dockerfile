@@ -4,7 +4,8 @@ RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/
 COPY --chown=www-data limesurvey/application/core/plugins/AuthLDAP/AuthLDAP.php  /usr/share/linuxmuster-limesurvey/AuthLDAP.php.dist
 COPY --chown=www-data ldapform.php.fix-14793 /var/www/html/application/views/admin/token/ldapform.php
-
+COPY --chown=www-data upload/ /var/www/html/upload/
+COPY --chown=www-data lmn-full-logo.png /var/www/html/themes/admin/Sea_Green/images/logo.png
 #COPY locale.gen /etc/locale.gen
 #COPY ldap.conf /etc/ldap/ldap.conf
 RUN apt-get update 
