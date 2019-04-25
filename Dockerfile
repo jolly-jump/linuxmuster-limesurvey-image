@@ -8,26 +8,28 @@ COPY --chown=www-data upload/ /var/www/html/upload/
 COPY --chown=www-data lmn-full-logo.png /var/www/html/themes/admin/Sea_Green/images/logo.png
 #COPY locale.gen /etc/locale.gen
 #COPY ldap.conf /etc/ldap/ldap.conf
-RUN apt-get update 
-RUN apt-get -y full-upgrade
-# php-ldap
-RUN apt-get install -y libldap2-dev 
-RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
-RUN docker-php-ext-install ldap
-# php-gd with freetype, jpeg support
-RUN apt-get install -y libfreetype6-dev libjpeg-dev libpng-dev
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install gd
-# php-zip
-RUN apt-get install -y libzip-dev
-RUN docker-php-ext-install zip
-# php-pdo-mysql
-RUN docker-php-ext-install pdo_mysql
-# mysql-client
-RUN apt-get install -y mysql-client
 
-RUN apt-get clean -y
-RUN rm -rf /var/lib/apt/lists/*
+# php-ldap
+# php-gd with freetype, jpeg support
+# php-zip
+# php-pdo-mysql
+# mysql-client
+
+RUN apt-get update \
+    && apt-get -y full-upgrade \
+    && apt-get install -y libldap2-dev \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
+    && docker-php-ext-install ldap \
+    && apt-get install -y libfreetype6-dev libjpeg-dev libpng-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && apt-get install -y libzip-dev \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install pdo_mysql \
+    && apt-get install -y mysql-client \
+    && apt-get purge -y libc6-dev libfreetype6-dev libjpeg-dev libldap2-dev libpng-dev libzip-dev \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # locales
 #COPY php.ini-production /usr/local/etc/php/php.ini
