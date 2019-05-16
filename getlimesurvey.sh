@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt
+wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
 
 old_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
 echo "Current version: $old_version"
@@ -33,7 +33,8 @@ wget $guessing -O limesurvey.zip
 #wget https://www.limesurvey.org/stable-release?download=2550:limesurvey3173%20190429zip -O limesurvey.zip
 
 rm -rf limesurvey
-unzip limesurvey.zip
+echo "unzipping lime"
+unzip -q limesurvey.zip
 rm tmp.html tmp2.html
 
 echo "Download ok? Overwrite limesurvey_version.txt - press Enter."
