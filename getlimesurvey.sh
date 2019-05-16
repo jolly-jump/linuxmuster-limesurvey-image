@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt
+wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt
 
 old_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
 echo "Current version: $old_version"
 
 grep Changes release_notes.txt | head -1 > new.txt
+rm release_notes.txt
 cat new.txt
 if diff new.txt limesurvey_version.txt >/dev/null; then
     echo "No new version"
@@ -38,11 +39,13 @@ rm tmp.html tmp2.html
 echo "Download ok? Overwrite limesurvey_version.txt - press Enter."
 read
 
-#mv new.txt limesurvey_version.txt
+mv new.txt limesurvey_version.txt
 git status
-echo git commit -m"limesurvey new version: $new_version" -a
+git commit -m"limesurvey new version: $new_version" -a
 
 docker pull php:apache
 docker inspect php:apache | grep RepoTags -A 3
 
-echo "now build with: docker build -t hgkvplan/linuxmuster-survey:"
+php_version=$(cat php_version.txt)
+git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
+echo "now build with: docker build -t hgkvplan/linuxmuster-survey:$php_version-$git_log ."
