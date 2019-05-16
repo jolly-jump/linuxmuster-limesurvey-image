@@ -42,11 +42,10 @@ read
 
 mv new.txt limesurvey_version.txt
 git status
-git commit -m"limesurvey new version: $new_version" -a
+php_version=$(cat php_version.txt)
+git commit -a -m"limesurvey new version: $new_version; php version: $php_version" 
 
 docker pull php:apache
 docker inspect php:apache | grep RepoTags -A 3
-
-php_version=$(cat php_version.txt)
 git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
 echo "now build with: docker build -t hgkvplan/linuxmuster-survey:$php_version-$git_log ."
