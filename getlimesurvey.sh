@@ -27,10 +27,9 @@ guessing=$(grep download.limesurvey.org tmp2.html | sed -n 's/.*href=.\(.*zip\).
 echo "Guessing: $guessing"
 echo "Trying download"
 
-wget $guessing -O limesurvey.zip
-
 #wget https://www.limesurvey.org/stable-release?download=2546:limesurvey3171%20190408zip -O limesurvey.zip
 #wget https://www.limesurvey.org/stable-release?download=2550:limesurvey3173%20190429zip -O limesurvey.zip
+wget $guessing -O limesurvey.zip
 
 rm -rf limesurvey
 echo "unzipping lime"
@@ -48,4 +47,4 @@ git commit -a -m"limesurvey new version: $new_version; php version: $php_version
 docker pull php:apache
 docker inspect php:apache | grep RepoTags -A 3
 git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
-echo "now build with: docker build -t hgkvplan/linuxmuster-survey:$php_version-$git_log ."
+echo "now build with: docker build -t hgkvplan/limesurvey:$php_version-$git_log ."
