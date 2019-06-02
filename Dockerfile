@@ -1,4 +1,4 @@
-FROM php:7.3.5-apache-stretch
+FROM php:7.3.6-apache-stretch
 RUN mkdir /var/linuxmuster-limesurvey
 RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/
