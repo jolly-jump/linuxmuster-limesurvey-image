@@ -1,9 +1,9 @@
-FROM php:7.3.6-apache-stretch
+FROM php:7.3.7-apache-buster
 RUN mkdir /var/linuxmuster-limesurvey
 RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/
 COPY --chown=www-data limesurvey/application/core/plugins/AuthLDAP/AuthLDAP.php  /usr/share/linuxmuster-limesurvey/AuthLDAP.php.dist
-COPY --chown=www-data ldapform.php.fix-14793 /var/www/html/application/views/admin/token/ldapform.php
+#COPY --chown=www-data ldapform.php.fix-14793 /var/www/html/application/views/admin/token/ldapform.php
 COPY --chown=www-data upload/ /var/www/html/upload/
 COPY --chown=www-data lmn-full-logo.png /var/www/html/themes/admin/Sea_Green/images/logo.png
 #COPY locale.gen /etc/locale.gen
@@ -26,7 +26,7 @@ RUN apt-get update \
     && apt-get install -y libzip-dev \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
-    && apt-get install -y mysql-client \
+    && apt-get install -y default-mysql-client \
     && apt-get purge -y libc6-dev libfreetype6-dev libjpeg-dev libldap2-dev libpng-dev libzip-dev \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
