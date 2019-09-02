@@ -20,12 +20,23 @@ wget https://www.limesurvey.org/stable-release -O tmp.html >/dev/null 2>&1
 #https://www.limesurvey.org/stable-release?download=2550:limesurvey3173%20190429zip
 guessing=$(grep $new_version*.zip tmp.html | sed -n 's/.*href="\(.*?tmpl=component\).*/\1/p')
 echo "Guessing: $guessing"
+if [ -z $guessing ]; then
+   echo "There seems to be a discrepancy: Version <$new_version> cannot be found in the stable-release file"
+   echo "Stable release file contains:"
+   grep .zip tmp.html
+   exit 1
+fi
 wget  https://www.limesurvey.org/$guessing -O tmp2.html >/dev/null 2>&1 
 
 #http://download.limesurvey.org/latest-stable-release/limesurvey3.17.3+190429.zip
 guessing=$(grep download.limesurvey.org tmp2.html | sed -n 's/.*href=.\(.*zip\).*/\1/p')
 echo "Guessing: $guessing"
 echo "Trying download"
+
+if [ -z $guessing ]; then
+    echo "There seems to be a discrepancy: Version <$new_version> cannot be found on the download servers"
+    exit 1
+fi
 
 #wget https://www.limesurvey.org/stable-release?download=2546:limesurvey3171%20190408zip -O limesurvey.zip
 #wget https://www.limesurvey.org/stable-release?download=2550:limesurvey3173%20190429zip -O limesurvey.zip
