@@ -10,7 +10,7 @@ git commit -a -m"limesurvey new version: $new_version; php version: $php_version
 docker pull php:apache
 docker inspect php:apache | grep RepoTags -A 3
 git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
-echo "Press enter to build with: docker build -t hgkvplan/limesurvey:$php_version-$git_log ."
+echo "Press enter to build with: docker build -t hgkvplan/linuxmuster-survey:$php_version-$git_log ."
 read
 docker build -t hgkvplan/linuxmuster-survey:$php_version-$git_log .
 docker tag hgkvplan/linuxmuster-survey:$php_version-$git_log hgkvplan/linuxmuster-survey:latest
