@@ -1,4 +1,4 @@
-FROM php:7.3.9-apache-buster
+FROM php:7.3.10-apache-buster
 RUN mkdir /var/linuxmuster-limesurvey
 RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/

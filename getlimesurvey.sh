@@ -49,13 +49,5 @@ rm tmp.html tmp2.html
 
 echo "Download ok? Overwrite limesurvey_version.txt - press Enter."
 read
-
 mv new.txt limesurvey_version.txt
-git status
-php_version=$(cat php_version.txt)
-git commit -a -m"limesurvey new version: $new_version; php version: $php_version" 
 
-docker pull php:apache
-docker inspect php:apache | grep RepoTags -A 3
-git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
-echo "now build with: docker build -t hgkvplan/limesurvey:$php_version-$git_log ."
