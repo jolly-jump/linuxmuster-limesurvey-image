@@ -2,6 +2,9 @@
 
 ./getlimesurvey.sh
 
+new_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
+echo "New version: $new_version"
+
 git status
 php_version=$(cat php_version.txt)
 grep $php_version Dockerfile || { echo "$php_version not in Dockerfile, please fix"; exit 1 ; }
