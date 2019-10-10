@@ -2,13 +2,13 @@
 
 ./getlimesurvey.sh
 
-new_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
-echo "New version: $new_version"
+version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
+echo "Limesurvey version: $version"
 
 git status
 php_version=$(cat php_version.txt)
 grep $php_version Dockerfile || { echo "$php_version not in Dockerfile, please fix"; exit 1 ; }
-git commit -a -m"limesurvey new version: $new_version; php version: $php_version" 
+git commit -a -m"limesurvey version: $version; php version: $php_version" 
 
 docker pull php:apache
 docker inspect php:apache | grep RepoTags -A 3
