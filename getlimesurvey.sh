@@ -10,6 +10,7 @@ rm release_notes.txt
 cat new.txt
 if diff new.txt limesurvey_version.txt >/dev/null; then
     echo "No new version"
+    rm new.txt
     exit 0
 fi
   
