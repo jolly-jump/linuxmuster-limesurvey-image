@@ -1,1 +1,1 @@
-Changes from 3.19.1 (build 191009) to 3.19.2 (build 191017) October 17, 2019
+Changes from 3.19.2 (build 191017) to 3.19.3 (build 191023) October 23, 2019
