@@ -23,3 +23,6 @@ echo "docker push hgkvplan/linuxmuster-survey:$php_version-$git_log ; docker pus
 read
 docker tag hgkvplan/linuxmuster-survey:$php_version-$git_log hgkvplan/linuxmuster-survey:working
 docker push hgkvplan/linuxmuster-survey:$php_version-$git_log ; docker push hgkvplan/linuxmuster-survey:latest
+echo "Remove limesurvey and limesurvey.zip ?"
+read
+rm -rf limesurvey limesurvey.zip
