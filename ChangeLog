@@ -1,6 +1,7 @@
 2019-11-30  T.Küchel  <devel@zukuul.de>
 
 	* new upstream php version: 7.4.0
+	* change docker image to official linuxmuster/survey
 
 2019-11-26  T.Küchel  <devel@zukuul.de>
 
