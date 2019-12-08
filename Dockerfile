@@ -21,7 +21,7 @@ RUN apt-get update \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
     && apt-get install -y libfreetype6-dev libjpeg-dev libpng-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && apt-get install -y libzip-dev \
     && docker-php-ext-install zip \
@@ -30,6 +30,8 @@ RUN apt-get update \
     && apt-get purge -y libc6-dev libfreetype6-dev libjpeg-dev libldap2-dev libpng-dev libzip-dev \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
+
+##    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 
 # locales
 #COPY php.ini-production /usr/local/etc/php/php.ini
