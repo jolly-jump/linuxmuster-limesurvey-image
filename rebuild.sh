@@ -7,7 +7,10 @@ echo "Limesurvey version: $version"
 
 git status
 php_version=$(cat php_version.txt)
-grep $php_version Dockerfile || { echo "$php_version not in Dockerfile, please fix"; exit 1 ; }
+if ! grep $php_version Dockerfile ; then
+    echo "$php_version not in Dockerfile, fixing this";
+    sed -i "s/^FROM\ php.*/FROM php:${php_version}/" Dockerfile
+fi
 git commit -a -m"limesurvey version: $version; php version: $php_version" 
 
 docker pull php:apache
