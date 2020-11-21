@@ -1,1 +1,1 @@
-Changes from 4.3.25 (build 201105) to 4.3.26 (build 201110) November 9, 2020
+Changes from 4.3.26 (build 201110) to 4.3.27 (build 201116) November 16, 2020
