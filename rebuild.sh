@@ -13,8 +13,8 @@ if ! grep $php_version Dockerfile ; then
 fi
 git commit -a -m"limesurvey version: $version; php version: $php_version" 
 
-docker pull php:apache
-docker inspect php:apache | grep RepoTags -A 3
+docker pull php:7-apache
+docker inspect php:7-apache | grep RepoTags -A 3
 git_log=$(git log --oneline | head -1 | cut -d " " -f 1)
 echo "Press enter to build with: docker build -t linuxmuster/survey:$php_version-$git_log ."
 read
