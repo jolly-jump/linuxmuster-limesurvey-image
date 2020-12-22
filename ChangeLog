@@ -1,6 +1,7 @@
 2020-12-22   T.Küchel  <devel@zukuul.de>
 
 	* new php upstream: 7.4.13
+	* found out, we switched at some stage to limesurvey 4.3.x without noticing :innocent:
 
 2020-11-21   T.Küchel  <devel@zukuul.de>
 

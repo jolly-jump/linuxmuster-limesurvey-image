@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
+wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
 
-wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/3.x-LTS/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
+#wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/3.x-LTS/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
 
-old_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
-echo "Current version: $old_version"
+old_version_date=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
+old_version=$(cat limesurvey_version.txt | sed -n "s/.*[[:blank:]]\+\([0-9].\+\)[[:blank:]].*(build.*[[:blank:]]\+\([0-9].\+\)[[:blank:]].*(build.*/\2/p")
+echo "Current version: $old_version ($old_version_date)"
 
 grep Changes release_notes.txt | head -1 > new.txt
 rm release_notes.txt
@@ -16,14 +17,14 @@ if diff new.txt limesurvey_version.txt >/dev/null; then
     exit 0
 fi
   
-new_version=$(cat new.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
-echo "New version: $new_version"
-
+new_version_date=$(cat new.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
+new_version=$(cat new.txt | sed -n "s/.*[[:blank:]]\+\([0-9].\+\)[[:blank:]].*(build.*[[:blank:]]\+\([0-9].\+\)[[:blank:]].*(build.*/\2/p")
+echo "New version: $new_version ($new_version_date)"
 
 ## does not work due to javascript - click necessary...
 ###wget https://community.limesurvey.org/releases/${new_version}/ -O tmp.html 
 
-echo "Please visit https://community.limesurvey.org/releases , click on the version and copy+paste the download link here:"
+echo "Please visit https://community.limesurvey.org/releases , click on the version newest like $new_version and copy+paste the download link here:"
 
 read link
 
