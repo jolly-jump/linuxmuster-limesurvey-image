@@ -1,6 +1,8 @@
 #!/bin/bash
 
-wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
+#wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/master/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
+
+wget https://raw.githubusercontent.com/LimeSurvey/LimeSurvey/3.x-LTS/docs/release_notes.txt -O release_notes.txt >/dev/null 2>&1
 
 old_version=$(cat limesurvey_version.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
 echo "Current version: $old_version"
@@ -16,24 +18,33 @@ fi
   
 new_version=$(cat new.txt | sed -n "s/.*build[[:blank:]]\+\([0-9]\+\).*build[[:blank:]]\+\([0-9]\+\).*/\2/p")
 echo "New version: $new_version"
-wget https://www.limesurvey.org/stable-release -O tmp.html >/dev/null 2>&1
+
+
+## does not work due to javascript - click necessary...
+###wget https://community.limesurvey.org/releases/${new_version}/ -O tmp.html 
+
+echo "Please visit https://community.limesurvey.org/releases , click on the version and copy+paste the download link here:"
+
+read link
+
+echo $link
 
 #https://www.limesurvey.org/stable-release?download=2550:limesurvey3173%20190429zip
 #guessing=$(grep ${new_version}*.zip tmp.html | sed -n 's/.*href="\(.*?tmpl=component\).*/\1/p')
-
 #https://download.limesurvey.org/latest-stable-release/limesurvey4.3.5+200721.zip
 #grep ${new_version}*.zip tmp.html
 #grep ${new_version}*.zip tmp.html | sed -n "s@.*href='https://download.limesurvey.org/\(.*${new_version}.zip\).*@\1@p"
-guessing=$(grep ${new_version}*.zip tmp.html | sed -n "s@.*href='https://download.limesurvey.org/\(.*${new_version}.zip\).*@\1@p")
-echo "Guessing: $guessing"
-if [ -z $guessing ]; then
-   echo "There seems to be a discrepancy: Version <$new_version> cannot be found in the stable-release file"
-   echo "Stable release file contains:"
-   grep .zip tmp.html
-   exit 1
-fi
+#guessing=$(grep ${new_version}*.zip tmp.html | sed -n "s@.*href='https://download.limesurvey.org/\(.*${new_version}.zip\).*@\1@p")
+#echo "Guessing: $guessing"
+#if [ -z $guessing ]; then
+#   echo "There seems to be a discrepancy: Version <$new_version> cannot be found in the stable-release file"
+#   echo "Stable release file contains:"
+#   grep .zip tmp.html
+#   exit 1
+#fi
+#wget  https://download.limesurvey.org/$guessing -O limesurvey.zip
 
-wget  https://download.limesurvey.org/$guessing -O limesurvey.zip
+wget $link -O limesurvey.zip
 
 rm -rf limesurvey
 echo "unzipping lime"
