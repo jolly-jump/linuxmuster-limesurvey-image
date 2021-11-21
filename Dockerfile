@@ -1,4 +1,4 @@
-FROM php:7.4.25-apache-bullseye
+FROM php:7.4.26-apache-bullseye
 RUN mkdir /var/linuxmuster-limesurvey
 RUN mkdir /usr/share/linuxmuster-limesurvey
 COPY --chown=www-data limesurvey/  /var/www/html/
