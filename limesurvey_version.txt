@@ -1,1 +1,1 @@
-Changes from 5.2.6 (build 211213) to 5.2.7 (build 211221) December 21, 2021
+Changes from 5.2.11 (build 220124) to 5.2.12 (build 220131) January 31, 2022
